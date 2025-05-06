@@ -1,0 +1,147 @@
+# ==========================
+# General System Files
+# ==========================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ==========================
+# IDE and Editor Configurations
+# ==========================
+.idea/
+*.swp
+*.swo
+
+# ==========================
+# Go-Specific Ignores
+# ==========================
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go module workspace files
+go.work
+go.work.sum
+
+# Remove vendor if dependency vendoring is unnecessary
+# vendor/
+
+# ==========================
+# Xcode & Swift
+# ==========================
+# Xcode project files
+xcuserdata/
+*.xcworkspace/
+*.xcuserdata/
+*.xccheckout
+*.xcscmblueprint
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/*.pbxuser
+*.xcodeproj/*.mode1v3
+*.xcodeproj/*.mode2v3
+*.xcodeproj/*.perspectivev3
+*.xcodeproj/xcshareddata/swiftpm/
+
+# Derived Data & Index
+DerivedData/
+*.xcuserstate
+*.xcuserdatad/
+*.xcdebugger/
+# *.xcassets/
+*.xcresult/
+*.xctestrun
+
+# Build & Intermediate Files
+build/
+*.app
+*.ipa
+*.dSYM
+*.xctest/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+.swiftpm/xcode/
+.swiftpm/xcode/package.xcworkspace/
+Package.resolved
+
+# CocoaPods & Carthage
+Pods/
+Podfile.lock
+Carthage/Checkouts
+Carthage/Build
+
+# Swift Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Fastlane
+fastlane/report.xml
+fastlane/screenshots/
+fastlane/test_output/
+
+# ==========================
+# Device Support
+# ==========================
+device-support/
+*.deviceids
+
+# ==========================
+# Environment & Security Files
+# ==========================
+.env
+*.crt
+*.key
+
+# ==========================
+# Temporary & Log Files
+# ==========================
+*.log
+*.tmp
+*.bak
+
+# ==========================
+# Xcode User Data
+# ==========================
+*.xcodesnippet
+*.xcsettings
+
+# ==========================
+# Python FastAPI
+# ==========================
+.idea
+.ipynb_checkpoints
+.mypy_cache
+.vscode
+__pycache__
+.pytest_cache
+htmlcov
+dist
+site
+.coverage*
+coverage.xml
+.netlify
+test.db
+log.txt
+Pipfile.lock
+env3.*
+env
+docs_build
+site_build
+venv
+docs.zip
+archive.zip
+
+# vim temporary files
+*~
+.*.sw?
+.cache
+
+# macOS
+.DS_Store

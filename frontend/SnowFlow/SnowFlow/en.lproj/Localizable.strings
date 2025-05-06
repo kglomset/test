@@ -1,0 +1,30 @@
+/* ========================== */
+/*       Error messages       */
+/* ========================== */
+
+"error_invalid_url" = "The URL is invalid.";
+"error_json_encoding_failed" = "Failed to encode the request body to JSON.";
+"error_json_decoding_failed" = "Failed to decode the response from JSON.";
+"error_utf8_encoding_failed" = "Failed to encode text to UTF-8.";
+"error_utf8_decoding_failed" = "Failed to decode text from UTF-8.";
+"error_http" = "HTTP Error %d";
+"error_no_internet" = "No internet connection. Please check your network and try again.";
+"error_server_unavailable" = "The server is currently unavailable. Please try again later.";
+"error_timeout" = "The request timed out. Please try again.";
+"error_unsupported_content" = "Unsupported content type: %@.";
+"error_unexpected_data" = "Unexpected data was returned when no data was expected.";
+"error_image_encoding_failed" = "The image could not be encoded into data.";
+"error_image_decoding_failed" = "The data could not be decoded into an image.";
+"error_unknown_network" = "An unknown network error occurred.";
+"error_invalid_credentials" = "Invalid email or password.";
+"error_session_expired" = "Your session has expired. Please log in again.";
+
+/* ========================== */
+/*       Login view UI        */
+/* ========================== */
+
+"email_label" = "Email";
+"email_placeholder" = "Enter email";
+"password_label" = "Password";
+"password_placeholder" = "Enter password";
+"login_button" = "Login";

@@ -1,0 +1,14 @@
+{
+  "air_temp": 1.8,
+  "air_humidity": 0.9,
+  "wind": 0.7,
+  "clouds": 0.5,
+
+  "snow_temp": 1.2,
+  "snow_moisture": 1.5,
+  "hardness": 0.8,
+  "snow_type": 1,
+  "track": 0.4,
+  
+  "_recency_days": 365
+}

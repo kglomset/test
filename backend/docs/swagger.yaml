@@ -1,0 +1,1408 @@
+definitions:
+  domain.Product:
+    properties:
+      brand:
+        type: string
+      comment:
+        type: string
+      ean_code:
+        type: string
+      high_temperature:
+        type: number
+      id:
+        type: integer
+      image_url:
+        type: string
+      is_public:
+        type: boolean
+      low_temperature:
+        type: number
+      name:
+        type: string
+      status:
+        type: string
+      testing_team:
+        type: integer
+      type:
+        type: string
+      version:
+        type: string
+    type: object
+  domain.ProductBundle:
+    properties:
+      bundle_id:
+        type: integer
+      layer_no:
+        type: integer
+      product_id:
+        type: integer
+    type: object
+  domain.Session:
+    properties:
+      created_at:
+        type: string
+      expires_at:
+        type: string
+      session_token:
+        type: string
+      status:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  domain.Test:
+    properties:
+      ac_id:
+        type: integer
+      comment:
+        type: string
+      id:
+        type: integer
+      is_public:
+        type: boolean
+      location:
+        type: string
+      sc_id:
+        type: integer
+      tc_id:
+        type: integer
+      test_date:
+        type: string
+      testing_team:
+        type: integer
+      version:
+        type: string
+    type: object
+  domain.TestRank:
+    properties:
+      distance_behind:
+        type: integer
+      is_public:
+        type: boolean
+      product_id:
+        type: integer
+      rank:
+        type: integer
+      test_id:
+        type: integer
+      version:
+        type: string
+    type: object
+  loginHandler.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        maxLength: 64
+        minLength: 8
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  productsHandler.ProductPATCHRequest:
+    properties:
+      updates:
+        additionalProperties: true
+        type: object
+      version:
+        type: string
+    required:
+    - updates
+    type: object
+  productsHandler.ProductPOSTRequest:
+    properties:
+      brand:
+        description: 'Brand: Only ASCII, can be blank, max 64 characters'
+        maxLength: 64
+        type: string
+      comment:
+        description: 'Comment: max 2040 bytes.'
+        maxLength: 2040
+        type: string
+      ean_code:
+        description: |-
+          EANCode: Only ASCII, can be blank, max 64 characters,
+          Only capital letters, numbers, and '#' are allowed; non-blank, max 128 characters.
+        maxLength: 128
+        type: string
+      high_temperature:
+        description: HighTemperature must be between -100 and 100.
+        maximum: 100
+        minimum: -100
+        type: number
+      image_url:
+        description: 'ImageURL: Only ASCII, can be blank, and must be a valid URL.'
+        type: string
+      is_public:
+        description: Gets set to false by default and validated in POST handler.
+        type: boolean
+      low_temperature:
+        description: LowTemperature must be between -100 and 100.
+        maximum: 100
+        minimum: -100
+        type: number
+      name:
+        description: 'Name: Only ASCII, non-blank, max 64 characters.'
+        maxLength: 64
+        type: string
+      status:
+        description: 'Status: Only one of the following: active, tested, discontinued,
+          development, retired.'
+        enum:
+        - active
+        - tested
+        - discontinued
+        - development
+        - retired
+        type: string
+      testing_team:
+        type: integer
+      type:
+        description: 'Type: Only ASCII, non-blank, max 16 characters.'
+        enum:
+        - liquid
+        - solid
+        - spray
+        - powder
+        - gel
+        - bundle
+        type: string
+    required:
+    - comment
+    - high_temperature
+    - low_temperature
+    - name
+    - status
+    - type
+    type: object
+  rankingsHandler.RankingsPOSTRequest:
+    properties:
+      is_public:
+        type: boolean
+      rank:
+        type: integer
+      test_id:
+        type: integer
+      version:
+        type: string
+      wins:
+        type: integer
+    required:
+    - rank
+    - test_id
+    - wins
+    type: object
+  registrationHandler.RegistrationPOSTRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 14
+        type: string
+      team_name:
+        type: string
+      team_role:
+        enum:
+        - 1
+        - 2
+        type: integer
+    required:
+    - email
+    - password
+    - team_name
+    - team_role
+    type: object
+  testsHandler.AirConditionsPOST:
+    properties:
+      cloud:
+        enum:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        type: string
+      humidity:
+        maximum: 100
+        minimum: 0
+        type: integer
+      temperature:
+        maximum: 100
+        minimum: -100
+        type: number
+      wind:
+        enum:
+        - S
+        - L
+        - M
+        - ST
+        type: string
+    type: object
+  testsHandler.SnowConditionsPOST:
+    properties:
+      snow_humidity:
+        enum:
+        - DS
+        - W1
+        - W2
+        - W3
+        - W4
+        type: string
+      snow_type:
+        enum:
+        - A1
+        - A2
+        - A3
+        - A4
+        - A5
+        - FS
+        - NS
+        - IN
+        - IT
+        - TR
+        type: string
+      temperature:
+        maximum: 100
+        minimum: -100
+        type: number
+    type: object
+  testsHandler.TestPATCHRequest:
+    properties:
+      updates:
+        additionalProperties: true
+        type: object
+      version:
+        type: string
+    required:
+    - updates
+    type: object
+  testsHandler.TestPOSTRequest:
+    properties:
+      ac:
+        $ref: '#/definitions/testsHandler.AirConditionsPOST'
+      comment:
+        maxLength: 2040
+        type: string
+      is_public:
+        enum:
+        - true
+        - false
+        type: boolean
+      location:
+        maxLength: 256
+        type: string
+      sc:
+        $ref: '#/definitions/testsHandler.SnowConditionsPOST'
+      tc:
+        $ref: '#/definitions/testsHandler.TrackConditionsPOST'
+      test_date:
+        description: 'TODO: Need validation for date format'
+        type: string
+      test_ranks:
+        items:
+          $ref: '#/definitions/testsHandler.TestRanksPOST'
+        type: array
+      testing_team:
+        type: integer
+    required:
+    - ac
+    - comment
+    - location
+    - sc
+    - tc
+    - test_ranks
+    type: object
+  testsHandler.TestRanksPOST:
+    properties:
+      distance_behind:
+        minimum: 0
+        type: integer
+      is_rank_public:
+        enum:
+        - true
+        - false
+        type: boolean
+      product_id:
+        minimum: 0
+        type: integer
+      rank:
+        type: integer
+    type: object
+  testsHandler.TrackConditionsPOST:
+    properties:
+      track_hardness:
+        enum:
+        - H1
+        - H2
+        - H3
+        - H4
+        - H5
+        - H6
+        type: string
+      track_type:
+        enum:
+        - T1
+        - T2
+        - D1
+        - D2
+        type: string
+    type: object
+  userProfileHandler.TeamResponse:
+    properties:
+      name:
+        type: string
+      team_role:
+        type: string
+    type: object
+  userProfileHandler.UserProfileResponse:
+    properties:
+      email:
+        type: string
+      team:
+        $ref: '#/definitions/userProfileHandler.TeamResponse'
+      user_role:
+        type: string
+    type: object
+  usersHandler.ChangePasswordRequest:
+    properties:
+      current_password:
+        minLength: 8
+        type: string
+      new_password:
+        minLength: 8
+        type: string
+    required:
+    - current_password
+    - new_password
+    type: object
+  usersHandler.UserInfoResponse:
+    properties:
+      email:
+        type: string
+      team_name:
+        type: string
+      user_role:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /bundles:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of bundles based on query parameters.
+      parameters:
+      - description: Bundle ID
+        in: query
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response with a list of bundles
+          schema:
+            items:
+              $ref: '#/definitions/domain.ProductBundle'
+            type: array
+        "500":
+          description: Could not retrieve all bundles.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get a list of bundles
+      tags:
+      - Bundles
+    post:
+      consumes:
+      - application/json
+      description: Creates a new bundle based on the provided JSON request body.
+      parameters:
+      - description: Bundle details
+        in: body
+        name: bundle
+        required: true
+        schema:
+          $ref: '#/definitions/domain.ProductBundle'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Bundle created successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid request body
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "500":
+          description: Failed to commit the transaction.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create a new bundle
+      tags:
+      - Bundles
+  /bundles/:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of bundles based on query parameters.
+      parameters:
+      - description: Bundle ID
+        in: query
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response with a list of bundles
+          schema:
+            items:
+              $ref: '#/definitions/domain.ProductBundle'
+            type: array
+        "500":
+          description: Could not retrieve all bundles.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get a list of bundles
+      tags:
+      - Bundles
+    post:
+      consumes:
+      - application/json
+      description: Creates a new bundle based on the provided JSON request body.
+      parameters:
+      - description: Bundle details
+        in: body
+        name: bundle
+        required: true
+        schema:
+          $ref: '#/definitions/domain.ProductBundle'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Bundle created successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid request body
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "500":
+          description: Failed to commit the transaction.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create a new bundle
+      tags:
+      - Bundles
+  /login/:
+    post:
+      consumes:
+      - application/json
+      description: Authenticates the user and creates a session
+      parameters:
+      - description: User credentials
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/loginHandler.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Session created successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid request body
+          schema:
+            type: string
+        "401":
+          description: Invalid email or password
+          schema:
+            type: string
+        "405":
+          description: Method not allowed
+          schema:
+            type: string
+        "500":
+          description: Could not create session
+          schema:
+            type: string
+      summary: Login user
+      tags:
+      - Login
+  /logout/:
+    post:
+      consumes:
+      - application/json
+      description: Logs out the user by invalidating the session and CSRF tokens
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully logged out
+          schema:
+            type: string
+        "400":
+          description: Request method not allowed
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "500":
+          description: Could not log out
+          schema:
+            type: string
+      summary: Logout user
+      tags:
+      - Logout
+  /products:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of products based on query parameters.
+      parameters:
+      - description: Product id
+        in: query
+        name: id
+        type: string
+      - description: Publicly Available Product
+        in: query
+        name: public
+        type: string
+      - description: Fields to retrieve
+        in: query
+        name: fields
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response with a list of products
+          schema:
+            items:
+              $ref: '#/definitions/domain.Product'
+            type: array
+        "500":
+          description: Could not retrieve all products.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get a list of products
+      tags:
+      - Products
+    patch:
+      consumes:
+      - application/json
+      description: Updates fields of an existing product.
+      parameters:
+      - description: Product ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: Product update fields
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/productsHandler.ProductPATCHRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product updated successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid request data
+          schema:
+            type: string
+        "409":
+          description: Detected a conflict for the current product, please refresh.
+          schema:
+            type: string
+        "500":
+          description: Could not update product.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update a product
+      tags:
+      - Products
+    post:
+      consumes:
+      - application/json
+      description: Adds a new product to the database.
+      parameters:
+      - description: New product information
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/productsHandler.ProductPOSTRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Product created successfully
+        "400":
+          description: Invalid request data
+          schema:
+            type: string
+        "403":
+          description: Researcher cannot create public products
+          schema:
+            type: string
+        "409":
+          description: Product already exists
+          schema:
+            type: string
+        "500":
+          description: Could not create product.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create a new product
+      tags:
+      - Products
+  /products/:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new product to the database.
+      parameters:
+      - description: New product information
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/productsHandler.ProductPOSTRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Product created successfully
+        "400":
+          description: Invalid request data
+          schema:
+            type: string
+        "403":
+          description: Researcher cannot create public products
+          schema:
+            type: string
+        "409":
+          description: Product already exists
+          schema:
+            type: string
+        "500":
+          description: Could not create product.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create a new product
+      tags:
+      - Products
+  /products/{products_id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of products based on query parameters.
+      parameters:
+      - description: Product id
+        in: query
+        name: id
+        type: string
+      - description: Publicly Available Product
+        in: query
+        name: public
+        type: string
+      - description: Fields to retrieve
+        in: query
+        name: fields
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response with a list of products
+          schema:
+            items:
+              $ref: '#/definitions/domain.Product'
+            type: array
+        "500":
+          description: Could not retrieve all products.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get a list of products
+      tags:
+      - Products
+  /rankings:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of rankings based on query parameters.
+      parameters:
+      - description: Public rankings
+        in: query
+        name: public
+        type: string
+      - description: Test ID
+        in: query
+        name: test_id
+        type: integer
+      - description: Rank
+        in: query
+        name: rank
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response with a list of rankings
+          schema:
+            items:
+              $ref: '#/definitions/domain.TestRank'
+            type: array
+        "400":
+          description: Invalid rank parameter
+          schema:
+            type: string
+        "500":
+          description: Could not retrieve all rankings
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get a list of rankings
+      tags:
+      - Rankings
+    post:
+      consumes:
+      - application/json
+      description: Creates a new ranking
+      parameters:
+      - description: New ranking information
+        in: body
+        name: ranking
+        required: true
+        schema:
+          $ref: '#/definitions/rankingsHandler.RankingsPOSTRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Ranking created successfully
+        "400":
+          description: Invalid request body
+          schema:
+            type: string
+        "409":
+          description: Product is already part of the test
+          schema:
+            type: string
+        "500":
+          description: Could not create ranking
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create a new ranking
+      tags:
+      - Rankings
+  /rankings/:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new ranking
+      parameters:
+      - description: New ranking information
+        in: body
+        name: ranking
+        required: true
+        schema:
+          $ref: '#/definitions/rankingsHandler.RankingsPOSTRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Ranking created successfully
+        "400":
+          description: Invalid request body
+          schema:
+            type: string
+        "409":
+          description: Product is already part of the test
+          schema:
+            type: string
+        "500":
+          description: Could not create ranking
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create a new ranking
+      tags:
+      - Rankings
+  /rankings/{rank_id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of rankings based on query parameters.
+      parameters:
+      - description: Public rankings
+        in: query
+        name: public
+        type: string
+      - description: Test ID
+        in: query
+        name: test_id
+        type: integer
+      - description: Rank
+        in: query
+        name: rank
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response with a list of rankings
+          schema:
+            items:
+              $ref: '#/definitions/domain.TestRank'
+            type: array
+        "400":
+          description: Invalid rank parameter
+          schema:
+            type: string
+        "500":
+          description: Could not retrieve all rankings
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get a list of rankings
+      tags:
+      - Rankings
+  /register/:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new user
+      parameters:
+      - description: User credentials
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/registrationHandler.RegistrationPOSTRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: User created successfully
+        "400":
+          description: Invalid request body
+          schema:
+            type: string
+        "405":
+          description: Method not allowed
+          schema:
+            type: string
+        "409":
+          description: User already exists
+          schema:
+            type: string
+        "500":
+          description: Could not create user
+          schema:
+            type: string
+      summary: Register user
+      tags:
+      - Registration
+  /tests:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of tests based on query parameters.
+      parameters:
+      - description: All Public Tests
+        in: query
+        name: public
+        type: string
+      - description: Start Date in YYYY-MM-DD format
+        in: query
+        name: start_date
+        type: string
+      - description: End date in YYYY-MM-DD format
+        in: query
+        name: end_date
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response with a list of tests
+          schema:
+            items:
+              $ref: '#/definitions/domain.Test'
+            type: array
+        "400":
+          description: Invalid start date format.
+          schema:
+            type: string
+        "500":
+          description: Could not retrieve all tests.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get a list of tests
+      tags:
+      - Tests
+    post:
+      consumes:
+      - application/json
+      description: Adds a new test to the database.
+      parameters:
+      - description: New test information
+        in: body
+        name: test
+        required: true
+        schema:
+          $ref: '#/definitions/testsHandler.TestPOSTRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Test created successfully
+        "500":
+          description: Could not create test.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create a new test
+      tags:
+      - Tests
+  /tests/:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of tests based on query parameters.
+      parameters:
+      - description: All Public Tests
+        in: query
+        name: public
+        type: string
+      - description: Start Date in YYYY-MM-DD format
+        in: query
+        name: start_date
+        type: string
+      - description: End date in YYYY-MM-DD format
+        in: query
+        name: end_date
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response with a list of tests
+          schema:
+            items:
+              $ref: '#/definitions/domain.Test'
+            type: array
+        "400":
+          description: Invalid start date format.
+          schema:
+            type: string
+        "500":
+          description: Could not retrieve all tests.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get a list of tests
+      tags:
+      - Tests
+    patch:
+      consumes:
+      - application/json
+      description: Updates an existing test in the database.
+      parameters:
+      - description: Test updates
+        in: body
+        name: test
+        required: true
+        schema:
+          $ref: '#/definitions/testsHandler.TestPATCHRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Test updated successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid patch request.
+          schema:
+            type: string
+        "409":
+          description: Detected a conflict for the current test, please refresh.
+          schema:
+            type: string
+        "500":
+          description: Could not JSON encode the response.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update an existing test's information, ranks, ac, tc and/or sc.
+      tags:
+      - Tests
+    post:
+      consumes:
+      - application/json
+      description: Adds a new test to the database.
+      parameters:
+      - description: New test information
+        in: body
+        name: test
+        required: true
+        schema:
+          $ref: '#/definitions/testsHandler.TestPOSTRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Test created successfully
+        "500":
+          description: Could not create test.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create a new test
+      tags:
+      - Tests
+  /tests/{test_id}/products/{product_id}:
+    patch:
+      consumes:
+      - application/json
+      description: Updates an existing test in the database.
+      parameters:
+      - description: Test ID
+        in: path
+        name: test_id
+        required: true
+        type: integer
+      - description: Product ID
+        in: path
+        name: product_id
+        required: true
+        type: integer
+      - description: Test updates
+        in: body
+        name: test
+        required: true
+        schema:
+          $ref: '#/definitions/testsHandler.TestPATCHRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Test updated successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid patch request.
+          schema:
+            type: string
+        "409":
+          description: Detected a conflict for the current test, please refresh.
+          schema:
+            type: string
+        "500":
+          description: Could not JSON encode the response.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update an existing test's information, ranks, ac, tc and/or sc.
+      tags:
+      - Tests
+  /user/profile:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the user profile for the authenticated user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response with user profile details
+          schema:
+            $ref: '#/definitions/userProfileHandler.UserProfileResponse'
+        "400":
+          description: Invalid request URL
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: User not found
+          schema:
+            type: string
+        "500":
+          description: Could not create user profile struct.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get user profile
+      tags:
+      - UserProfile
+  /users/{user_id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an active session of a user.
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Session deleted successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid request URL, no user_id or session_id found.
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: Session not found
+          schema:
+            type: string
+        "500":
+          description: Failed to commit the transaction.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete a user's active session
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the user for a specific user ID.
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      - description: Session status
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response with a list of active sessions
+          schema:
+            items:
+              $ref: '#/definitions/domain.Session'
+            type: array
+        "400":
+          description: Invalid request URL, no user_id found.
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: User not found
+          schema:
+            type: string
+        "500":
+          description: Could not create users struct.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get a user by ID
+      tags:
+      - Users
+  /users/{user_id}/sessions:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the user for a specific user ID.
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      - description: Session status
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful response with a list of active sessions
+          schema:
+            items:
+              $ref: '#/definitions/domain.Session'
+            type: array
+        "400":
+          description: Invalid request URL, no user_id found.
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: User not found
+          schema:
+            type: string
+        "500":
+          description: Could not create users struct.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get a user by ID
+      tags:
+      - Users
+  /users/{user_id}/sessions/{sessionId}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an active session of a user.
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      - description: Session ID
+        in: path
+        name: sessionId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Session deleted successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid request URL, no user_id or session_id found.
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "404":
+          description: Session not found
+          schema:
+            type: string
+        "500":
+          description: Failed to commit the transaction.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete a user's active session
+      tags:
+      - Users
+  /users/password:
+    patch:
+      consumes:
+      - application/json
+      description: Updates the password of a user.
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      - description: New password
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/usersHandler.ChangePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Password updated successfully
+          schema:
+            type: string
+        "400":
+          description: New password cannot be the same as the current password.
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "500":
+          description: Failed to commit the transaction.
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update a user's password
+      tags:
+      - Users
+swagger: "2.0"

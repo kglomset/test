@@ -1,0 +1,2 @@
+ALTER TABLE sessions
+ADD COLUMN ip_address VARCHAR(45);

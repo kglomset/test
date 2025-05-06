@@ -1,0 +1,31 @@
+/* ========================== */
+/*       Error messages       */
+/* ========================== */
+
+"error_invalid_url" = "URL-en er ugyldig";
+"error_json_encoding_failed" = "Kunne ikke kode forespørselen til JSON";
+"error_json_decoding_failed" = "Kunne ikke dekode svaret fra JSON";
+"error_utf8_encoding_failed" = "Kunne ikke kode tekst til UTF-8";
+"error_utf8_decoding_failed" = "Kunne ikke dekode tekst fra UTF-8";
+"error_http" = "HTTP-feil %d";
+"error_no_internet" = "Ingen internettforbindelse. Sjekk nettverket og prøv igjen";
+"error_server_unavailable" = "Serveren er for øyeblikket utilgjengelig. Prøv igjen senere";
+"error_timeout" = "Forespørselen tok for lang tid. Prøv igjen";
+"error_unsupported_content" = "Ikke-støttet innholdstype: %@";
+"error_unexpected_data" = "Uventede data ble returnert da ingen data var forventet";
+"error_image_encoding_failed" = "Bildet kunne ikke kodes til data";
+"error_image_decoding_failed" = "Dataene kunne ikke dekodes til et bilde";
+"error_unknown_network" = "En ukjent nettverksfeil oppstod";
+"error_invalid_credentials" = "Ugyldig e-post eller passord";
+"error_session_expired" = "Økten din har utløpt. Logg inn igjen";
+
+/* ========================== */
+/*       Login view UI        */
+/* ========================== */
+
+"email_label" = "E-post";
+"email_placeholder" = "Skriv inn e-post";
+"password_label" = "Passord";
+"password_placeholder" = "Skriv inn passord";
+"login_button" = "Logg inn";
+"error_invalid_credentials" = "Feil epost eller passord";
